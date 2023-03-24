@@ -36,7 +36,14 @@ public class User {
     @Column(name = "user_status")
     private Integer status;
 
-    @Column(name = "display_name")
+    /*
+    * Optional) Defines whether the value of the field or property may be null.
+    * This is a hint and is disregarded for primitive types;
+    * it may be used in schema generation.
+    * If not specified, defaults to true
+    * */
+    //@Column(name = "display_name",nullable = false)
+    @Basic(optional = false)
     private String displayName;
 
     public Long getId() {
