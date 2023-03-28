@@ -7,12 +7,14 @@ import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
 import java.sql.Timestamp;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "wp_users", indexes = {
         @Index(name = "user_login_key" ,columnList = "user_login"),
         @Index(name = "user_nicename" ,columnList = "user_nicename"),
-        @Index(name = "user_mail" ,columnList = "user_mail")
+        @Index(name = "user_email" ,columnList = "user_email")
 })
 public class User {
 
@@ -75,6 +77,20 @@ public class User {
     @Size(max = 255)
     @Basic(optional = false)
     private String displayName;
+
+    //182. Refactor for Bi-Directional Association
+    @OneToMany
+    @JoinColumn(name = "user_id")
+    private Set<UserMeta> userMetaSet;
+
+
+    public Set<UserMeta> getUserMetaSet() {
+        return userMetaSet;
+    }
+
+    public void setUserMetaSet(Set<UserMeta> userMetaSet) {
+        this.userMetaSet = userMetaSet;
+    }
 
     public Long getId() {
         return id;

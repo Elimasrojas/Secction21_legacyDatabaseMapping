@@ -2,6 +2,7 @@ package com.elr.elr.domain;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
+import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name = "wp_usermeta")
@@ -11,7 +12,11 @@ public class UserMeta {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "umeta_id")
     private Long id;
-    private Long userId;
+
+    //182. Refactor for Bi-Directional Association
+    //private Long userId;
+    @ManyToOne
+    private User user;
 
     @Size(max = 255)
     @Column(columnDefinition = "longtext")
@@ -22,8 +27,17 @@ public class UserMeta {
     * cuando lo cambio TINYTEXT en la base de datos si funciona.
     * */
     @Lob
+    //@Type(type = "org.hibernate.type.TextType")
     @Column(name = "meta_value")
     private String metaValue;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public Long getId() {
         return id;
@@ -33,6 +47,7 @@ public class UserMeta {
         this.id = id;
     }
 
+    /*
     public Long getUserId() {
         return userId;
     }
@@ -40,6 +55,8 @@ public class UserMeta {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+    */
+
 
     public String getMetaKey() {
         return metaKey;
