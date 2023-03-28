@@ -22,6 +22,7 @@ public class CommentMeta {
     @Column(name = "meta_key")
     private String metaKey;
 
+    //falta conseguir la solucion el diseño original de la tabla es LONGTEXT
     @Lob
     private String metaValue;
 
